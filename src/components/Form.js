@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
 
@@ -42,12 +42,47 @@ const Button = styled.button`
   }
 `
 
+const Error = styled.div`
+  background-color: red;
+  color: white;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+`
+
 const Form = (props) => {
+  const [data, setData] = useState({
+    branch: '',
+    year: '',
+    plan: '',
+  })
+
+  const [error, setError] = useState(false)
+
+  const { branch, year, plan } = data
+
+  const getData = (e) => setData({ ...data, [e.target.name]: e.target.value })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (branch.trim() === '' || year.trim() === '' || plan.trim()) {
+      setError(true)
+      return
+    }
+    setError(false)
+
+    // obtener la diferencia entre años
+
+    //  por cada año hay que restar el 3%
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
+      {error && <Error>Todos los campos son necesarios</Error>}
       <Field>
         <Label>Marca</Label>
-        <Select>
+        <Select name='branch' onChange={getData}>
           <option value=''>-- Seleccione --</option>
           <option value='americano'>Americano</option>
           <option value='europeo'>Europeo</option>
@@ -57,7 +92,7 @@ const Form = (props) => {
 
       <Field>
         <Label>Año</Label>
-        <Select>
+        <Select name='year' onChange={getData}>
           <option value=''>-- Seleccione --</option>
           <option value='2021'>2021</option>
           <option value='2020'>2020</option>
@@ -74,11 +109,23 @@ const Form = (props) => {
 
       <Field>
         <Label>Plan</Label>
-        <InputRadio type='radio' name='plan' value='basico' /> Basico
-        <InputRadio type='radio' name='plan' value='completo' /> Completo
+        <InputRadio
+          type='radio'
+          name='plan'
+          value='basico'
+          onChange={getData}
+        />{' '}
+        Basico
+        <InputRadio
+          type='radio'
+          name='plan'
+          value='completo'
+          onChange={getData}
+        />{' '}
+        Completo
       </Field>
 
-      <Button type='button'>Cotizar</Button>
+      <Button type='submit'>Cotizar</Button>
     </form>
   )
 }
