@@ -1,22 +1,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from '@emotion/styled'
+
+const Field = styled.div`
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: center;
+`
+
+const Label = styled.label`
+  flex: 0 0 100px;
+`
+
+const Select = styled.select`
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #e1e1e1;
+  --webkit-appearance: none;
+`
+
+const InputRadio = styled.input`
+  margin: 0 1rem;
+`
 
 const Form = (props) => {
   return (
     <form>
-      <div>
-        <label>Marca</label>
-        <select>
+      <Field>
+        <Label>Marca</Label>
+        <Select>
           <option value=''>-- Seleccione --</option>
           <option value='americano'>Americano</option>
           <option value='europeo'>Europeo</option>
           <option value='asiatico'>Asiatico</option>
-        </select>
-      </div>
+        </Select>
+      </Field>
 
-      <div>
-        <label>Año</label>
-        <select>
+      <Field>
+        <Label>Año</Label>
+        <Select>
           <option value=''>-- Seleccione --</option>
           <option value='2021'>2021</option>
           <option value='2020'>2020</option>
@@ -28,8 +51,16 @@ const Form = (props) => {
           <option value='2014'>2014</option>
           <option value='2013'>2013</option>
           <option value='2012'>2012</option>
-        </select>
-      </div>
+        </Select>
+      </Field>
+
+      <Field>
+        <label>Plan</label>
+        <InputRadio type='radio' name='plan' value='basico' /> Basico
+        <InputRadio type='radio' name='plan' value='completo' /> Completo
+      </Field>
+
+      <button type='button'>Cotizar</button>
     </form>
   )
 }
