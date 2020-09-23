@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
+import { getDifYear, calBranch } from './../helpers'
 
 const Field = styled.div`
   display: flex;
@@ -51,32 +52,42 @@ const Error = styled.div`
   margin-bottom: 2rem;
 `
 
-const Form = (props) => {
+const Form = props => {
   const [data, setData] = useState({
     branch: '',
     year: '',
-    plan: '',
+    plan: ''
   })
 
   const [error, setError] = useState(false)
 
   const { branch, year, plan } = data
 
-  const getData = (e) => setData({ ...data, [e.target.name]: e.target.value })
+  const getData = e => setData({ ...data, [e.target.name]: e.target.value })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
-    if (branch.trim() === '' || year.trim() === '' || plan.trim()) {
+    if (branch.trim() === '' || year.trim() === '' || plan.trim() === '') {
+      debugger
       setError(true)
       return
     }
     setError(false)
 
-    // obtener la diferencia entre años
+    // Una base de 2000
+    let result = 2000
 
-    //  por cada año hay que restar el 3%
+    // Obtener la diferencia entre años
+    const dif = getDifYear(year)
+
+    //  Por cada año hay que restar el 3%
+    result -= (dif * 3 * result) / 100
 
     // Americano 15
+    // Asiatico 5%
+    // Europeo 30%
+    result = calBranch(branch) * result
+    console.log(result)
   }
 
   return (
@@ -111,20 +122,8 @@ const Form = (props) => {
 
       <Field>
         <Label>Plan</Label>
-        <InputRadio
-          type='radio'
-          name='plan'
-          value='basico'
-          onChange={getData}
-        />{' '}
-        Basico
-        <InputRadio
-          type='radio'
-          name='plan'
-          value='completo'
-          onChange={getData}
-        />{' '}
-        Completo
+        <InputRadio type='radio' name='plan' value='basico' onChange={getData} /> Basico
+        <InputRadio type='radio' name='plan' value='completo' onChange={getData} /> Completo
       </Field>
 
       <Button type='submit'>Cotizar</Button>
