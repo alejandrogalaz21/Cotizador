@@ -1,16 +1,25 @@
-import React, { Fragment } from 'react'
-//import styled from '@emotion/styled'
+import React from 'react'
+import styled from '@emotion/styled'
+import { upperCaseFirst } from './../helpers'
+
+const SummaryContainer = styled.div`
+  padding: 1rem;
+  text-align: center;
+  background-color: #00838f;
+  color: #fff;
+  margin-top: 1rem;
+`
 
 const Summary = ({ branch, plan, year }) => {
   return (
-    <Fragment>
+    <SummaryContainer>
       <h2>Resuent de Cotizacion</h2>
       <ul>
-        <li>Marcar : {branch}</li>
+        <li>Marcar : {upperCaseFirst(branch)}</li>
         <li>Año : {year}</li>
-        <li>Plan : {plan}</li>
+        <li>Plan : {upperCaseFirst(plan)}</li>
       </ul>
-    </Fragment>
+    </SummaryContainer>
   )
 }
 

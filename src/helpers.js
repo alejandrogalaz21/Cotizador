@@ -16,3 +16,6 @@ export function calBranch(branch) {
 
 // Calcular tipo de seguro
 export const getPlan = plan => (plan == 'basico' ? 1.2 : 1.5)
+
+// First Letter Upper Case
+export const upperCaseFirst = text => text.charAt(0).toUpperCase() + text.slice(1)

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Header from './components/Header'
 import Form from './components/Form'
 import Summary from './components/Summary'
+import Result from './components/Result'
 
 import styled from '@emotion/styled'
 
@@ -17,13 +18,14 @@ const FormContainer = styled.div`
 
 function App() {
   const [resumen, setResumen] = useState({})
-  const { data } = resumen
+  const { data, quotation } = resumen
   return (
     <Container>
       <Header title='Cotizador de seguros' />
       <FormContainer>
         <Form setResumen={setResumen} />
         {data && <Summary {...data} />}
+        {quotation && <Result quotation={quotation} />}
       </FormContainer>
     </Container>
   )
