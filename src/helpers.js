@@ -1,5 +1,6 @@
 export const getDifYear = year => new Date().getFullYear() - year
 
+// Valor nacionalidad
 export function calBranch(branch) {
   switch (branch) {
     case 'europeo':
@@ -12,3 +13,6 @@ export function calBranch(branch) {
       return 1.15
   }
 }
+
+// Calcular tipo de seguro
+export const getPlan = plan => (plan == 'basico' ? 1.2 : 1.5)

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { getDifYear, calBranch } from './../helpers'
+import { getDifYear, calBranch, getPlan } from './../helpers'
 
 const Field = styled.div`
   display: flex;
@@ -76,17 +76,19 @@ const Form = props => {
 
     // Una base de 2000
     let result = 2000
-
     // Obtener la diferencia entre años
     const dif = getDifYear(year)
-
     //  Por cada año hay que restar el 3%
     result -= (dif * 3 * result) / 100
-
     // Americano 15
     // Asiatico 5%
     // Europeo 30%
     result = calBranch(branch) * result
+    // Basico aumenta 20%
+    // Completo 50%
+    const incrementPlan = getPlan(plan)
+    result = parseFloat(incrementPlan * result).toFixed(2)
+    // Total
     console.log(result)
   }
 
