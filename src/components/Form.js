@@ -89,7 +89,14 @@ const Form = props => {
     const incrementPlan = getPlan(plan)
     result = parseFloat(incrementPlan * result).toFixed(2)
     // Total
-    console.log(result)
+    props.setResumen({
+      quotation: result,
+      data: {
+        branch,
+        year,
+        plan
+      }
+    })
   }
 
   return (
