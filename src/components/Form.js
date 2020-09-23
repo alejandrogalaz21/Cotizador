@@ -68,7 +68,6 @@ const Form = props => {
   const handleSubmit = e => {
     e.preventDefault()
     if (branch.trim() === '' || year.trim() === '' || plan.trim() === '') {
-      debugger
       setError(true)
       return
     }
@@ -88,6 +87,14 @@ const Form = props => {
     // Completo 50%
     const incrementPlan = getPlan(plan)
     result = parseFloat(incrementPlan * result).toFixed(2)
+
+    // Loading
+    props.setLoading(true)
+
+    setTimeout(() => {
+      props.setLoading(false)
+    }, 3000)
+
     // Total
     props.setResumen({
       quotation: result,

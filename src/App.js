@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Form from './components/Form'
 import Summary from './components/Summary'
 import Result from './components/Result'
+import Spinner from './components/Spinner'
 
 import styled from '@emotion/styled'
 
@@ -18,14 +19,18 @@ const FormContainer = styled.div`
 
 function App() {
   const [resumen, setResumen] = useState({})
+  const [loading, setLoading] = useState(false)
+
   const { data, quotation } = resumen
   return (
     <Container>
       <Header title='Cotizador de seguros' />
+
       <FormContainer>
-        <Form setResumen={setResumen} />
-        {data && <Summary {...data} />}
-        {quotation && <Result quotation={quotation} />}
+        <Form setResumen={setResumen} setLoading={setLoading} />
+        {loading && <Spinner />}
+        {!loading && data && <Summary {...data} />}
+        {!loading && quotation && <Result quotation={quotation} />}
       </FormContainer>
     </Container>
   )
